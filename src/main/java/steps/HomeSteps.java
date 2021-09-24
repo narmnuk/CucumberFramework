@@ -7,7 +7,7 @@ import io.cucumber.java.en.When;
 
 public class HomeSteps {
 
-    public HomeImpl impl = new HomeImpl();
+    HomeImpl impl = new HomeImpl();
 
     @Given("I navigate to homepage")
     public void i_navigate_to_homepage() {

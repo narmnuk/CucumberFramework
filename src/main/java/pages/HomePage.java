@@ -14,4 +14,5 @@ public class HomePage {
 
     @FindBy(css = "a#sauce-demo")
     public WebElement sauceDemoLink;
-    }
+
+}

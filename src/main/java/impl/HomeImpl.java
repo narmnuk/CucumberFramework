@@ -8,17 +8,17 @@ import java.util.Set;
 
 public class HomeImpl {
 
-    HomePage homePage;
+    private HomePage homePage;
 
-    public HomePage getPage() {
+    private HomePage getPage() {
 
         if (homePage == null)
             homePage = new HomePage();
             return homePage;
     }
 
-    private static String expected;
-    private static String actual;
+    public String expected;
+    public String actual;
 
     public void navigateToHomepage() {
 
@@ -48,9 +48,8 @@ public class HomeImpl {
         }
 
         expected = "Swag Labs";
-        actual = WebDriverUtils.getDriver().getTitle();
 
-        Assert.assertTrue(actual.equals(expected));
-        System.out.println(actual);
+        Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals(expected));
+        System.out.println(WebDriverUtils.getDriver().getTitle());
     }
 }

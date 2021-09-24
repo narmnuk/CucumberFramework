@@ -2,11 +2,10 @@ package impl;
 
 import org.junit.Assert;
 import pages.UserMgtPage;
-import utils.ConfigReader;
 import utils.WebDriverUtils;
 import java.util.Set;
 
-public class UserMgtImpl extends HomeImpl {
+public class UserMgtImpl {
 
     private UserMgtPage userMgtPage;
 
@@ -14,21 +13,13 @@ public class UserMgtImpl extends HomeImpl {
 
         if (userMgtPage == null)
             userMgtPage = new UserMgtPage();
-            return userMgtPage;
+
+        return userMgtPage;
     }
 
     public void navigateToUserMgtPage() {
 
-        WebDriverUtils.getDriver().get(ConfigReader.readProperty("url"));
         getPage().userMgtLink.click();
-    }
-
-    public void getRegisterNewUserTitle() {
-
-        expected = "Register New User";
-
-        Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals(expected));
-        System.out.println(WebDriverUtils.getDriver().getTitle());
     }
 
     public void seeLoginButton() {
@@ -48,35 +39,37 @@ public class UserMgtImpl extends HomeImpl {
         getPage().accessDBBtn.click();
     }
 
-    public void getUserDBTitle() {
-
-        Set<String> windows = WebDriverUtils.getDriver().getWindowHandles();
-        for (String newWindow : windows) {
-            WebDriverUtils.getDriver().switchTo().window(newWindow);
-        }
-
-        expected = "User DB";
-
-        Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals(expected));
-        System.out.println(WebDriverUtils.getDriver().getTitle());
-    }
-
     public void clickLogin() {
 
         getPage().loginBtn.click();
     }
 
-    public void getLoginTitle() {
+    public void getTitle() {
 
         Set<String> windows = WebDriverUtils.getDriver().getWindowHandles();
         for (String newWindow : windows) {
             WebDriverUtils.getDriver().switchTo().window(newWindow);
+
+            switch (WebDriverUtils.getDriver().getTitle()) {
+
+                case "Register New User":
+                    Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("Register New User"));
+                    break;
+
+                case "User DB":
+                    Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("User DB"));
+                    break;
+
+                case "Login Page":
+                    Assert.assertTrue(getPage().tlaImg.isDisplayed());
+                    Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("Login Page"));
+                    break;
+
+                default:
+                    break;
+            }
         }
 
-        expected = "Login Page";
-
-        Assert.assertTrue(getPage().tlaImg.isDisplayed());
-        Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals(expected));
         System.out.println(WebDriverUtils.getDriver().getTitle());
     }
 }

@@ -17,7 +17,7 @@ public class UserMgtSteps {
     @Then("Title of the page should be Register New User")
     public void title_of_the_page_should_be_register_new_user() {
 
-        impl.getRegisterNewUserTitle();
+        impl.getTitle();
     }
 
     @Then("I should see Login button")
@@ -41,7 +41,7 @@ public class UserMgtSteps {
     @Then("Title of the page should be User DB")
     public void title_of_the_page_should_be_user_db() {
 
-        impl.getUserDBTitle();
+        impl.getTitle();
     }
 
     @When("I open Login page")
@@ -53,6 +53,6 @@ public class UserMgtSteps {
     @Then("Title of the page should be Login Page")
     public void title_of_the_page_should_be_login_page() {
 
-        impl.getLoginTitle();
+        impl.getTitle();
     }
 }

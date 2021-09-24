@@ -14,7 +14,8 @@ public class HomeImpl {
 
         if (homePage == null)
             homePage = new HomePage();
-            return homePage;
+
+        return homePage;
     }
 
     public String expected;

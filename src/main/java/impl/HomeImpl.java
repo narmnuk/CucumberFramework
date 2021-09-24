@@ -1,12 +1,21 @@
 package impl;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
+import pages.HomePage;
 import utils.ConfigReader;
 import utils.WebDriverUtils;
 import java.util.Set;
 
 public class HomeImpl {
+
+    HomePage homePage;
+
+    public HomePage getPage() {
+
+        if (homePage == null)
+            homePage = new HomePage();
+            return homePage;
+    }
 
     private static String expected;
     private static String actual;
@@ -19,7 +28,7 @@ public class HomeImpl {
     public void seeLinkText() {
 
         expected = "Saucedemo";
-        actual = WebDriverUtils.getDriver().findElement(By.cssSelector("a#sauce-demo")).getText();
+        actual = getPage().sauceDemoLink.getText();
 
         Assert.assertTrue(actual.equals(expected));
         System.out.println(actual);
@@ -27,8 +36,8 @@ public class HomeImpl {
 
     public void clickSauceDemo() {
 
-        Assert.assertTrue(WebDriverUtils.getDriver().findElement(By.cssSelector("a#sauce-demo")).isEnabled());
-        WebDriverUtils.getDriver().findElement(By.cssSelector("a#sauce-demo")).click();
+        Assert.assertTrue(getPage().sauceDemoLink.isEnabled());
+        getPage().sauceDemoLink.click();
     }
 
     public void getSwagLabsTitle() {
@@ -43,7 +52,5 @@ public class HomeImpl {
 
         Assert.assertTrue(actual.equals(expected));
         System.out.println(actual);
-
-        WebDriverUtils.quitDriver();
     }
 }

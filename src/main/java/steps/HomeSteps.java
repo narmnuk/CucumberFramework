@@ -1,20 +1,13 @@
 package steps;
 
 import impl.HomeImpl;
-import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class HomeSteps {
 
-    public HomeImpl impl;
-
-    @BeforeStep
-    public void setUp() {
-
-        impl = new HomeImpl();
-    }
+    public HomeImpl impl = new HomeImpl();
 
     @Given("I navigate to homepage")
     public void i_navigate_to_homepage() {

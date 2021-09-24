@@ -9,7 +9,7 @@ public class UserMgtSteps {
     UserMgtImpl impl = new UserMgtImpl();
 
     @When("I open User-Mgt page")
-    public void i_open_user_mgt_page() {
+    public void i_open_user_mgt_page() throws InterruptedException {
 
         impl.navigateToUserMgtPage();
     }
@@ -37,6 +37,7 @@ public class UserMgtSteps {
 
         impl.clickAccessDB();
     }
+
     @Then("Title of the page should be User DB")
     public void title_of_the_page_should_be_user_db() {
 
@@ -48,6 +49,7 @@ public class UserMgtSteps {
 
         impl.clickLogin();
     }
+
     @Then("Title of the page should be Login Page")
     public void title_of_the_page_should_be_login_page() {
 

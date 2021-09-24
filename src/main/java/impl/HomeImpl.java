@@ -18,7 +18,6 @@ public class HomeImpl {
     }
 
     public String expected;
-    public String actual;
 
     public void navigateToHomepage() {
 
@@ -28,10 +27,9 @@ public class HomeImpl {
     public void seeLinkText() {
 
         expected = "Saucedemo";
-        actual = getPage().sauceDemoLink.getText();
 
-        Assert.assertTrue(actual.equals(expected));
-        System.out.println(actual);
+        Assert.assertTrue(getPage().sauceDemoLink.getText().equals(expected));
+        System.out.println(getPage().sauceDemoLink.getText());
     }
 
     public void clickSauceDemo() {

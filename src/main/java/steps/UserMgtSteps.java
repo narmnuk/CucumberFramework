@@ -9,7 +9,7 @@ public class UserMgtSteps {
     UserMgtImpl impl = new UserMgtImpl();
 
     @When("I open User-Mgt page")
-    public void i_open_user_mgt_page() throws InterruptedException {
+    public void i_open_user_mgt_page() {
 
         impl.navigateToUserMgtPage();
     }

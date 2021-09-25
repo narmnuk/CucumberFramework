@@ -9,17 +9,12 @@ public class UserMgtImpl {
 
     private UserMgtPage userMgtPage;
 
-    private UserMgtPage getPage() {
+    public UserMgtPage getPage() {
 
         if (userMgtPage == null)
             userMgtPage = new UserMgtPage();
 
         return userMgtPage;
-    }
-
-    public void navigateToUserMgtPage() {
-
-        getPage().userMgtLink.click();
     }
 
     public void seeLoginButton() {
@@ -32,16 +27,6 @@ public class UserMgtImpl {
 
         Assert.assertTrue(getPage().accessDBBtn.isEnabled());
         System.out.println(getPage().accessDBBtn.getText());
-    }
-
-    public void clickAccessDB() {
-
-        getPage().accessDBBtn.click();
-    }
-
-    public void clickLogin() {
-
-        getPage().loginBtn.click();
     }
 
     public void getTitle() {
@@ -63,9 +48,6 @@ public class UserMgtImpl {
                 case "Login Page":
                     Assert.assertTrue(getPage().tlaImg.isDisplayed());
                     Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("Login Page"));
-                    break;
-
-                default:
                     break;
             }
         }

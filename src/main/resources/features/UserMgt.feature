@@ -1,6 +1,6 @@
 Feature: User Management Page Scenarios
 
-  Scenario: Verify title of the page
+  Scenario: Verify title of Register New User page
     Given I navigate to homepage
     When I open User-Mgt page
     Then Title of the page should be Register New User

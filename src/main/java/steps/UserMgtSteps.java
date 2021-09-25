@@ -11,7 +11,7 @@ public class UserMgtSteps {
     @When("I open User-Mgt page")
     public void i_open_user_mgt_page() {
 
-        impl.navigateToUserMgtPage();
+        impl.getPage().userMgtLink.click();
     }
 
     @Then("Title of the page should be Register New User")
@@ -35,7 +35,7 @@ public class UserMgtSteps {
     @When("I open Access DB page")
     public void i_open_access_db_page() {
 
-        impl.clickAccessDB();
+        impl.getPage().accessDBBtn.click();
     }
 
     @Then("Title of the page should be User DB")
@@ -47,7 +47,7 @@ public class UserMgtSteps {
     @When("I open Login page")
     public void i_open_login_page() {
 
-        impl.clickLogin();
+        impl.getPage().loginBtn.click();
     }
 
     @Then("Title of the page should be Login Page")

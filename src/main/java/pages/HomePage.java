@@ -15,4 +15,10 @@ public class HomePage {
     @FindBy(css = "a#sauce-demo")
     public WebElement sauceDemoLink;
 
+    @FindBy(css = "a#e-commerce")
+    public WebElement eCommerceLink;
+
+    @FindBy(css = "a#shopping-cart")
+    public WebElement shoppingCartLink;
+
 }

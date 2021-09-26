@@ -1,8 +1,12 @@
 package steps;
 
 import impl.UserMgtImpl;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import utils.SeleniumUtils;
+import utils.WebDriverUtils;
 
 public class UserMgtSteps {
 
@@ -14,45 +18,77 @@ public class UserMgtSteps {
         impl.getPage().userMgtLink.click();
     }
 
-    @Then("Title of the page should be Register New User")
-    public void title_of_the_page_should_be_register_new_user() {
-
-        impl.getTitle();
-    }
-
     @Then("I should see Login button")
     public void i_should_see_login_button() {
 
-        impl.seeLoginButton();
+        Assert.assertTrue(impl.getPage().loginBtn.isEnabled());
+        System.out.println(impl.getPage().loginBtn.getText());
     }
 
     @Then("I should see Access DB button")
     public void i_should_see_access_db_button() {
 
-        impl.seeAccessDBButton();
+        Assert.assertTrue(impl.getPage().accessDBBtn.isEnabled());
+        System.out.println(impl.getPage().accessDBBtn.getText());
     }
 
-    @When("I open Access DB page")
-    public void i_open_access_db_page() {
+    @Then("Title of the page should be {string}")
+    public void titleOfThePageShouldBe(String title) {
 
-        impl.getPage().accessDBBtn.click();
+        switch (title.toLowerCase()) {
+            case "register new user":
+            case "user db":
+            case "login page":
+                WebDriverUtils.getDriver().getTitle();
+                break;
+        }
+
+        Assert.assertTrue(title.equals(WebDriverUtils.getDriver().getTitle()));
+        System.out.println(WebDriverUtils.getDriver().getTitle());
+        SeleniumUtils.switchNewWindow();
     }
 
-    @Then("Title of the page should be User DB")
-    public void title_of_the_page_should_be_user_db() {
+    @And("I click on {string} button")
+    public void iClickPage(String clickButton) {
 
-        impl.getTitle();
+        switch (clickButton.toLowerCase()) {
+            case "login":
+                impl.getPage().loginBtn.click();
+                break;
+            case "access db":
+                impl.getPage().accessDBBtn.click();
+                break;
+            case "submit":
+                impl.getPage().submitBtn.click();
+                break;
+        }
+
+        SeleniumUtils.switchNewWindow();
     }
 
-    @When("I open Login page")
-    public void i_open_login_page() {
+    @Then("Image is displayed")
+    public void imageIsDisplayed() {
 
-        impl.getPage().loginBtn.click();
+        Assert.assertTrue(impl.getPage().tlaImg.getAttribute("src").contains("images/logo.jpeg"));
+        System.out.println(impl.getPage().tlaImg.getAttribute("src"));
     }
 
-    @Then("Title of the page should be Login Page")
-    public void title_of_the_page_should_be_login_page() {
+    @And("I input {string} as {string}")
+    public void iInputAs(String inputField, String value) {
 
-        impl.getTitle();
+        impl.inputFields(inputField, value);
+    }
+
+    @Then("Title of the page should {string}")
+    public void titleOfThePageShouldBeReactShoppingCart(String expectedTitle) {
+
+        Assert.assertEquals(expectedTitle, WebDriverUtils.getDriver().getTitle());
+        System.out.println(WebDriverUtils.getDriver().getTitle());
+    }
+
+    @Then("I should see all fields displayed on user table")
+    public void iShouldSeeAllFieldsDisplayedOnUserTable() {
+
+        Assert.assertTrue(impl.verifyFields());
     }
 }

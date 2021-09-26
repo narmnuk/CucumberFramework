@@ -1,9 +1,12 @@
 package impl;
 
-import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import pages.UserMgtPage;
-import utils.WebDriverUtils;
-import java.util.Set;
+import utils.SeleniumUtils;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserMgtImpl {
 
@@ -17,41 +20,62 @@ public class UserMgtImpl {
         return userMgtPage;
     }
 
-    public void seeLoginButton() {
+    Map<String, String> map = new LinkedHashMap<>();
 
-        Assert.assertTrue(getPage().loginBtn.isEnabled());
-        System.out.println(getPage().loginBtn.getText());
+    public void inputFields(String inputField, String value) {
+
+        switch (inputField.toLowerCase()) {
+            case "firstname":
+                getPage().firstName.sendKeys(value);
+                break;
+            case "lastname":
+                getPage().lastName.sendKeys(value);
+                break;
+            case "phonenumber":
+                getPage().phoneNumber.sendKeys(value);
+                break;
+            case "email":
+                getPage().eMail.sendKeys(value);
+                break;
+            case "role":
+                SeleniumUtils.selectByVisibleText(getPage().role, value);
+                break;
+        }
+
+        map.put(inputField, value);
     }
 
-    public void seeAccessDBButton() {
+    public boolean verifyFields() {
 
-        Assert.assertTrue(getPage().accessDBBtn.isEnabled());
-        System.out.println(getPage().accessDBBtn.getText());
-    }
-
-    public void getTitle() {
-
-        Set<String> windows = WebDriverUtils.getDriver().getWindowHandles();
-        for (String newWindow : windows) {
-            WebDriverUtils.getDriver().switchTo().window(newWindow);
-
-            switch (WebDriverUtils.getDriver().getTitle()) {
-
-                case "Register New User":
-                    Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("Register New User"));
-                    break;
-
-                case "User DB":
-                    Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("User DB"));
-                    break;
-
-                case "Login Page":
-                    Assert.assertTrue(getPage().tlaImg.isDisplayed());
-                    Assert.assertTrue(WebDriverUtils.getDriver().getTitle().equals("Login Page"));
-                    break;
+        List<WebElement> allInputs = getPage().tdDataTable;
+        for (String key : map.keySet()) {
+            for (int dataInput = 0; dataInput < allInputs.size(); dataInput++) {
+                if (allInputs.get(dataInput).getText().equals(map.get(key))) {
+                    return true;
+                }
             }
         }
 
-        System.out.println(WebDriverUtils.getDriver().getTitle());
+        return false;
+    }
+
+    public String verifyFields2() {
+
+        String result = "PASS";
+        List<WebElement> allInputs = getPage().tdDataTable;
+        boolean missing = true;
+        for (String key : map.keySet()) {
+            for (int dataInput = 0; dataInput < allInputs.size(); dataInput++) {
+                if (allInputs.get(dataInput).getText().equals(map.get(key))) {
+                    missing = false;
+                }
+            }
+
+            if (missing) {
+                result = "FAIL";
+            }
+        }
+
+        return result;
     }
 }

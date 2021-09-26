@@ -4,10 +4,14 @@ import impl.HomeImpl;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import utils.WebDriverUtils;
 
 public class HomeSteps {
 
     HomeImpl impl = new HomeImpl();
+
+    String actualText;
 
     @Given("I navigate to homepage")
     public void i_navigate_to_homepage() {
@@ -15,21 +19,25 @@ public class HomeSteps {
         impl.navigateToHomepage();
     }
 
-    @Then("I should be able to see Saucedemo link text")
-    public void i_should_be_able_to_see_saucedemo_link_text() {
+    @Then("I should be able to see {string} link text")
+    public void iShouldBeAbleToSeeLinkText(String linkText) {
 
-        impl.seeLinkText();
+        actualText = impl.getLinkText(linkText);
+        Assert.assertEquals(linkText, actualText);
     }
 
-    @When("I click Saucedemo link text")
-    public void i_click_saucedemo_link_text() {
+    @When("I click {string} link text")
+    public void iClickLinkText(String linkText) {
 
-        impl.clickSauceDemo();
+        impl.clickAndSwitch(linkText);
     }
 
-    @Then("I should see Swag Labs title")
-    public void i_should_see_swag_labs_title() {
+    @Then("Verify Title of the page should be {string}")
+    public void verifyTitleOfThePageShouldBe(String expectedTitle) {
 
-        impl.getSwagLabsTitle();
+        Assert.assertEquals(expectedTitle, WebDriverUtils.getDriver().getTitle());
+        System.out.println(WebDriverUtils.getDriver().getTitle());
     }
 }
+
+    

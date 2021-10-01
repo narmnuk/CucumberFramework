@@ -2,8 +2,9 @@ package impl;
 
 import org.openqa.selenium.WebElement;
 import pages.UserMgtPage;
+import pojos.User;
 import utils.SeleniumUtils;
-
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class UserMgtImpl {
     }
 
     Map<String, String> map = new LinkedHashMap<>();
+    List<User> allUsers = new ArrayList<>();
 
     public void inputFields(String inputField, String value) {
 
@@ -43,6 +45,18 @@ public class UserMgtImpl {
         }
 
         map.put(inputField, value);
+    }
+
+    public void addNewUser(User user) {
+
+        getPage().firstName.sendKeys(user.getFirstName());
+        getPage().lastName.sendKeys(user.getLastName());
+        getPage().phoneNumber.sendKeys(user.getPhoneNumber());
+        getPage().eMail.sendKeys(user.getEmail());
+        SeleniumUtils.selectByVisibleText(getPage().role, user.getRole());
+        getPage().submitBtn.click();
+
+        allUsers.add(user);
     }
 
     public boolean verifyFields() {

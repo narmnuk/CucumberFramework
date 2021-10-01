@@ -1,16 +1,35 @@
 package steps;
 
 import impl.UserMgtImpl;
+import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import pages.CommonPage;
+import pojos.Credentials;
+import pojos.User;
 import utils.SeleniumUtils;
 import utils.WebDriverUtils;
+import java.util.List;
+import java.util.Map;
 
-public class UserMgtSteps {
+public class UserMgtSteps implements CommonPage {
 
     UserMgtImpl impl = new UserMgtImpl();
+
+    @DataTableType
+    public Credentials registerUser1(Map<String, String> entry) {
+
+        return new Credentials(entry.get("username"), entry.get("password"));
+    }
+
+    @DataTableType
+    public User registerUser2(Map<String, String> entry) {
+
+        return new User(entry.get("FirstName"), entry.get("LastName"), entry.get("PhoneNumber"), entry.get("Email"), entry.get("Role"));
+    }
 
     @When("I open User-Mgt page")
     public void i_open_user_mgt_page() {
@@ -39,6 +58,7 @@ public class UserMgtSteps {
             case "register new user":
             case "user db":
             case "login page":
+            case "instructor page":
                 WebDriverUtils.getDriver().getTitle();
                 break;
         }
@@ -90,5 +110,36 @@ public class UserMgtSteps {
     public void iShouldSeeAllFieldsDisplayedOnUserTable() {
 
         Assert.assertTrue(impl.verifyFields());
+    }
+
+    @When("I create following users")
+    public void iCreateFollowingUsers(List<User> users) {
+
+        for (User eachUser : users) {
+            impl.addNewUser(eachUser);
+        }
+    }
+
+    @Then("I validate following credentials are login in with no issue:")
+    public void iValidateFollowingCredentialsAreLoginInWithNoIssue(List<Credentials> credentials) {
+
+        String xpathUsername = String.format(XPATH_TEMPLATE_INPUT_BOX, "Enter Username");
+        String xpathPassword = String.format(XPATH_TEMPLATE_INPUT_BOX, "Enter Password");
+        String xpathButton = String.format(XPATH_TEMPLATE_BUTTON, "Login");
+
+        for (Credentials eachC : credentials) {
+            WebDriverUtils.getDriver().findElement(By.xpath(xpathUsername)).sendKeys(eachC.getUsername());
+            WebDriverUtils.getDriver().findElement(By.xpath(xpathPassword)).sendKeys(eachC.getPassword());
+            WebDriverUtils.getDriver().findElement(By.xpath(xpathButton)).click();
+
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            WebDriverUtils.getDriver().get("http://automation.techleadacademy.io/#/practiceLogin");
+            WebDriverUtils.getDriver().navigate().refresh();
+        }
     }
 }

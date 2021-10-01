@@ -4,7 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.WebDriverUtils;
-
 import java.util.List;
 
 public class UserMgtPage {
@@ -44,7 +43,7 @@ public class UserMgtPage {
     @FindBy(css = "button#submit-btn")
     public WebElement submitBtn;
 
-    @FindBy(css = "tbody > tr> td")
+    @FindBy(css = "tbody > tr > td")
     public List<WebElement> tdDataTable;
 
 }

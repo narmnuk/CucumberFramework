@@ -39,5 +39,3 @@ public class HomeSteps {
         System.out.println(WebDriverUtils.getDriver().getTitle());
     }
 }
-
-    

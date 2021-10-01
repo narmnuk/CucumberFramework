@@ -33,3 +33,18 @@ Feature: User Management Page Scenarios
     And I input "Role" as "Student"
     And I click on "Submit" button
     Then I should see all fields displayed on user table
+
+  Scenario: Create users using cucumber typeRegistry with POJO class
+    When I create following users
+      | FirstName | LastName       | PhoneNumber  | Email                    | Role    |
+      | Jackie    | Natt           | 703-123-4567 | JackieNatt@gmail.com     | Student |
+      | Kirstie   | Tiwthong       | 703-765-4321 | Kirstie@gmail.com        | Student |
+      | Nattawut  | Siriwongthawan | 703-424-6071 | Siriwongthawan@gmail.com | Student |
+
+  Scenario: Verify multiple credentials' login
+    And I click on "Login" button
+    Then I validate following credentials are login in with no issue:
+      | username        | password   |
+      | jwick@gmail.com | john.wick$ |
+      | liz@b.com       | liz.blue$  |
+      | jwick@gmail.com | john.wick$ |

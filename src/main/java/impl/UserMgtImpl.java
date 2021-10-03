@@ -3,6 +3,7 @@ package impl;
 import org.openqa.selenium.WebElement;
 import pages.UserMgtPage;
 import pojos.User;
+import utils.ExcelUtils;
 import utils.SeleniumUtils;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -57,6 +58,19 @@ public class UserMgtImpl {
         getPage().submitBtn.click();
 
         allUsers.add(user);
+    }
+
+    public void addNewUserFromExcelFile(String sheetName, String fileName) {
+        ArrayList<ArrayList<String>> allUsers = ExcelUtils.readRows(sheetName, fileName);
+
+        for (int i = 1; i < allUsers.size(); i++) {
+            getPage().firstName.sendKeys(allUsers.get(i).get(0));
+            getPage().lastName.sendKeys(allUsers.get(i).get(1));
+            getPage().phoneNumber.sendKeys(allUsers.get(i).get(2));
+            getPage().eMail.sendKeys(allUsers.get(i).get(3));
+            SeleniumUtils.selectByVisibleText(getPage().role, allUsers.get(i).get(4));
+            getPage().submitBtn.click();
+        }
     }
 
     public boolean verifyFields() {

@@ -48,3 +48,11 @@ Feature: User Management Page Scenarios
       | jwick@gmail.com | john.wick$ |
       | liz@b.com       | liz.blue$  |
       | jwick@gmail.com | john.wick$ |
+
+  @readFromExcel
+  Scenario: Create users using Excel file
+    When I create users from "Sheet 1" sheet in "Users.xlsx" file
+
+  @readFromExcel
+  Scenario: Create users using excel file with random generated user data
+    When I create users from "Test Users" sheet in "newUsers.xlsx" file

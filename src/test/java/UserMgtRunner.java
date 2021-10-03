@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
         features = "src/main/resources/features/UserMgt.feature",
         glue = {"steps"},
         stepNotifications = true,
+        tags = "@readFromExcel",
         dryRun = false
 )
 

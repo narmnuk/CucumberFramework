@@ -142,4 +142,10 @@ public class UserMgtSteps implements CommonPage {
             WebDriverUtils.getDriver().navigate().refresh();
         }
     }
+
+    @When("I create users from {string} sheet in {string} file")
+    public void iCreateUsersFromSheetInFile(String sheetName, String fileName) {
+
+        impl.addNewUserFromExcelFile(sheetName, fileName);
+    }
 }

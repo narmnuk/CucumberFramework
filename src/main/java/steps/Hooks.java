@@ -20,6 +20,6 @@ public class Hooks {
         if(scenario.isFailed())
             CucumberLogUtils.logFail("Scenario: " + scenario.getName() + " FAILED", true);
 
-        WebDriverUtils.quitDriver();
+//        WebDriverUtils.quitDriver();
     }
 }
